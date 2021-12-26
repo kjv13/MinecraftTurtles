@@ -19,7 +19,10 @@ do
                 -- if sucked item was not cobble, put in chest above
                 if(turtle.getItemDetail().name ~= "minecraft:cobblestone")
                 then
-                    turtle.dropUp()
+                    print("Non Cobble detected, Moving to top chest")
+                    while(turtle.dropUp() == false) do
+                        print("Failed to drop up, Please empty chest above this one")
+                    end
                 else
                     -- if it was cobble and 64 move on
                     if(turtle.getItemCount() == 64)
