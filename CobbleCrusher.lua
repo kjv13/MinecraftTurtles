@@ -10,35 +10,30 @@ end
 
 while true 
 do
-
     craftArray = {1,2,3,5,6,7,9,10,11}
     -- fill crafter
     for i = 1, 9 do
         turtle.select(craftArray[i])
-      
         while(true) do             
             if(turtle.suck()) then
                 -- if sucked item was not cobble, put in chest above
-                if(turtle.getItemDetail() ~= nil)
+                if(turtle.getItemDetail().name ~= "minecraft:cobblestone")
                 then
-                
-                    if(turtle.getIdemDetail().name ~= "minecraft:cobblestone")
+                    turtle.dropUp()
+                else
+                    -- if it was cobble and 64 move on
+                    if(turtle.getItemCount() == 64)
                     then
-                        turtle.dropUp()
-                    else
-                        -- if it was cobble and 64 move on
-                        if(turtle.getItemCount() == 64)
-                        then
-                            break
-                        elseif(turtle.getItemCount() > 0)
-                        then
-                            -- if it was less than 64, try again
-                            turtle.drop()
-                        end
-                        print("Waiting for cobble")
-                        -- nothing was sucked, try again
+                        break
+                    elseif(turtle.getItemCount() > 0)
+                    then
+                        -- if it was less than 64, try again
+                        turtle.drop()
                     end
+                    print("Waiting for cobble")
+                    -- nothing was sucked, try again
                 end
+            
             end
         end           
     end
