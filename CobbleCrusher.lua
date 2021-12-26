@@ -3,14 +3,8 @@
 function goToChest(chest)
   if chest == 1 then
     turtle.turnLeft()
-    turtle.forward()
-    turtle.forward()
-    turtle.turnRight()
   elseif chest == 2 then
     turtle.turnRight()
-    turtle.forward()
-    turtle.forward()
-    turtle.turnLeft()
   end
 end
 
@@ -24,18 +18,23 @@ do
       
         while(true) do             
             if(turtle.suck()) then
-                -- if it was 64 move on
-                if(turtle.getItemCount() == 64)
+                -- if sucked item was not cobble, put in chest above
+                if(turtle.getIdemDetail().name ~= "minecraft:cobblestone")
                 then
-                    break
-                elseif(turtle.getItemCount() > 0)
-                
-                then
-                    -- if it was less than 64, try again
-                    turtle.drop()
+                    turtle.dropUp()
+                else
+                    -- if it was cobble and 64 move on
+                    if(turtle.getItemCount() == 64)
+                    then
+                        break
+                    elseif(turtle.getItemCount() > 0)
+                    then
+                        -- if it was less than 64, try again
+                        turtle.drop()
+                    end
+                    print("Waiting for cobble")
+                    -- nothing was sucked, try again
                 end
-                print("Waiting for cobble")
-                -- nothing was sucked, try again
             end
         end           
     end
