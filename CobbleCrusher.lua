@@ -19,21 +19,25 @@ do
         while(true) do             
             if(turtle.suck()) then
                 -- if sucked item was not cobble, put in chest above
-                if(turtle.getIdemDetail().name ~= "minecraft:cobblestone")
+                if(turtle.getItemDetail() ~= nil)
                 then
-                    turtle.dropUp()
-                else
-                    -- if it was cobble and 64 move on
-                    if(turtle.getItemCount() == 64)
+                
+                    if(turtle.getIdemDetail().name ~= "minecraft:cobblestone")
                     then
-                        break
-                    elseif(turtle.getItemCount() > 0)
-                    then
-                        -- if it was less than 64, try again
-                        turtle.drop()
+                        turtle.dropUp()
+                    else
+                        -- if it was cobble and 64 move on
+                        if(turtle.getItemCount() == 64)
+                        then
+                            break
+                        elseif(turtle.getItemCount() > 0)
+                        then
+                            -- if it was less than 64, try again
+                            turtle.drop()
+                        end
+                        print("Waiting for cobble")
+                        -- nothing was sucked, try again
                     end
-                    print("Waiting for cobble")
-                    -- nothing was sucked, try again
                 end
             end
         end           
@@ -45,8 +49,8 @@ do
     -- deposit
     goToChest(2)
     for i = 1, 3 do
-    turtle.select(i)
-    turtle.drop()
+        turtle.select(i)
+        turtle.drop()
     end
     for i = 5, 7 do
         turtle.select(i)
